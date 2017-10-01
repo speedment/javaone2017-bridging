@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
-    
+
     <groupId>com.speedment.javaone2017</groupId>
     <artifactId>bridging-the-gap</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    
+
     <name>JavaOne2017 Bridging the Gap</name>
-    
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>9</maven.compiler.source>
         <maven.compiler.target>9</maven.compiler.target>
         <speedment.version>3.0.14</speedment.version>
     </properties>
-    
+
     <build>
         <plugins>
             <plugin>
                 <groupId>com.speedment</groupId>
                 <artifactId>speedment-maven-plugin</artifactId>
                 <version>${speedment.version}</version>
-                
+
                 <dependencies>
                     <dependency>
                         <groupId>com.speedment.plugins</groupId>
@@ -30,25 +33,56 @@
                         <version>${speedment.version}</version>
                     </dependency>
                 </dependencies>
-                
+
                 <configuration>
                     <components>
-                        <component>com.speedment.plugins.enums.EnumGeneratorBundle</component>
+                        <component>
+                            com.speedment.plugins.enums.EnumGeneratorBundle
+                        </component>
                     </components>
                 </configuration>
-                
+
                 <executions>
                     <execution>
                         <id>generate-speedment-sources</id>
                         <goals>
-                            <goal>generate-sources</goal>
+                            <goal>generate</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>create-lib-folder</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>create-classpath-file</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>build-classpath</goal>
+                        </goals>
+                        <configuration>
+                            <prefix>target/lib</prefix>
+                            <fileSeparator>/</fileSeparator>
+                            <excludeTypes>pom</excludeTypes>
+                            <outputFile>classpath</outputFile>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
-    
+
     <dependencies>
         <dependency>
             <groupId>com.speedment</groupId>
@@ -56,12 +90,12 @@
             <version>${speedment.version}</version>
             <type>pom</type>
         </dependency>
-        
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.42</version>
             <scope>runtime</scope>
         </dependency>
-    </dependencies>        
+    </dependencies>
 </project>
