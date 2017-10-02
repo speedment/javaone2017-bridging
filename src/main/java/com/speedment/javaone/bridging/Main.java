@@ -36,7 +36,7 @@ import java.util.stream.Stream;
 public class Main {
 
     public static void main(String[] args) {
-        SakilaApplication app = buildApplication();
+        SakilaApplication app = startSpeedment();
         FilmManager films = app.getOrThrow(FilmManager.class);
         LanguageManager languages = app.getOrThrow(LanguageManager.class);
 
@@ -100,7 +100,7 @@ public class Main {
         return f -> String.format("{\"title\":\"%s\",\"rating\":\"%s\"}", f.getTitle(), f.getRating());
     }
 
-    public static SakilaApplication buildApplication() {
+    public static SakilaApplication startSpeedment() {
         return new SakilaApplicationBuilder().withPassword("sakila-password").withLogging(LogType.STREAM).build();
     }
 

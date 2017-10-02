@@ -6,5 +6,5 @@ import com.company.sakila.sakila.sakila.film.generated.GeneratedFilm.Rating;
 import com.company.sakila.sakila.sakila.language.Language;
 import com.company.sakila.sakila.sakila.language.LanguageManager;
 import com.speedment.runtime.core.ApplicationBuilder.LogType;
-import static java.util.stream.Collectors.*;
+//import static java.util.stream.Collectors.*;
 import static com.speedment.javaone.bridging.Main.*;
